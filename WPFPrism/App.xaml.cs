@@ -2,6 +2,7 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
+using NavigationTree;
 
 namespace WPFPrism
 {
@@ -18,6 +19,11 @@ namespace WPFPrism
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
+        }
+
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            moduleCatalog.AddModule<NavigationTreeModule>(InitializationMode.WhenAvailable);
         }
     }
 }
