@@ -10,6 +10,7 @@ namespace NavigationTree
         public void OnInitialized(IContainerProvider containerProvider)
         {
             var regionMan = containerProvider.Resolve<IRegionManager>();
+            regionMan.RegisterViewWithRegion("NaviTree", typeof(Views.NavigationTree));
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)

@@ -5,5 +5,8 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
         <TreeView/>
+        <!--
+        <TextBlock TextWrapping="Wrap" Text="TextBlock"/>
+        -->
     </Grid>
 </UserControl>

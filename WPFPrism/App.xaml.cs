@@ -11,6 +11,17 @@ namespace WPFPrism
     /// </summary>
     public partial class App
     {
+        private string dataFilePath = string.Empty;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            if (e.Args.Length == 1)
+            {
+                this.dataFilePath = e.Args[0];
+                base.OnStartup(e);
+            }
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
