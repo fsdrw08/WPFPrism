@@ -3,6 +3,8 @@ using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
 using NavigationTree;
+using WPFPrismServices;
+using WPFPrismModels;
 
 namespace WPFPrism
 {
@@ -29,7 +31,7 @@ namespace WPFPrism
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterInstance<WPFPrismModels.WPFPrismData>(DataLoader.Load(this.dataFilePath));
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
