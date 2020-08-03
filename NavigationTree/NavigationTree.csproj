@@ -64,6 +64,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\NavigationTreeViewModel.cs" />
+    <Compile Include="ViewModels\TreeViewItemCreator.cs" />
+    <Compile Include="ViewModels\TreeViewItemViewModel.cs" />
     <Compile Include="Views\NavigationTree.xaml.cs">
       <DependentUpon>NavigationTree.xaml</DependentUpon>
     </Compile>
@@ -98,6 +100,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="7.2.0.1422" />
+    <PackageReference Include="ReactiveProperty">
+      <Version>7.1.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

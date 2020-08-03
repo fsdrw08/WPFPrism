@@ -20,8 +20,8 @@ namespace WPFPrism
             if (e.Args.Length == 1)
             {
                 this.dataFilePath = e.Args[0];
-                base.OnStartup(e);
             }
+            base.OnStartup(e);
         }
 
         protected override Window CreateShell()
