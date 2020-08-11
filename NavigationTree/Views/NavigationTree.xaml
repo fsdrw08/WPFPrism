@@ -11,7 +11,10 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type nt:TreeViewItemViewModel}"
                                           ItemsSource="{Binding Children}">
-                    <TextBlock Text="{Binding ItemText.Value}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding ItemImage.Value}" Width="25" Height="25"/>
+                        <TextBlock Text="{Binding ItemText.Value}"/>
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>

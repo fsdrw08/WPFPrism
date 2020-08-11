@@ -16,6 +16,9 @@ namespace NavigationTree.ViewModels
 		/// <summary>Gets the text of the TreeViewItem</summary>
 		public ReadOnlyReactivePropertySlim<string> ItemText { get; }
 
+		///<summary>TreeViewItem's Image get</summary>
+		public ReactiveProperty<System.Windows.Media.ImageSource> ItemImage { get; }
+
 		/// <summary>Gets the child node</summary>
 		public ReactiveCollection<TreeViewItemViewModel> Children { get; }
 
@@ -34,31 +37,47 @@ namespace NavigationTree.ViewModels
 				.AddTo(this._disposables);
 
 			this.SourceData = treeItem;
+			var imageFileName = string.Empty;
+
 			switch (this.SourceData)
 			{
 				case PersonalModel p:
 					this.ItemText = p.ObserveProperty(x => x.Name)
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
+					imageFileName = "bullet_user.png";
 					break;
+
 				case PhysicalModel ph:
 					this.ItemText = ph.ObserveProperty(x => x.MeasureDate)
 						.Select(d => d.HasValue ? d.Value.ToString("yyy年MM月dd日") : "New measurements")
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
+					imageFileName = "heart.png";
 					break;
+
 				case TestPointModel t:
 					this.ItemText = t.ObserveProperty(x => x.TestDate)
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
+					imageFileName = "data_add.png";
 					break;
+
 				case string s:
 					this.ItemText = this.ObserveProperty(x => x.SourceData)
 						.Select(v => v as string)
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
+					if(s=="Physical test") { imageFileName = "folder_user.png"; }
+					if(s=="Test result") { imageFileName = "folder_page_white.png"; }
 					break;
 			}
+
+				var img = new System.Windows.Media.Imaging.BitmapImage(
+					new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName,
+						UriKind.Absolute));
+				this.ItemImage = new ReactiveProperty<System.Windows.Media.ImageSource>(img)
+					.AddTo(this._disposables);
 		}
 
 		/// <summary>Destroys the object.</summary>
