@@ -20,9 +20,11 @@ namespace NavigationTree.ViewModels
 
         private TreeViewItemViewModel rootNode = null;
 
-        private System.Reactive.Disposables.CompositeDisposable disposables
+        private System.Reactive.Disposables.CompositeDisposable _disposables
             = new System.Reactive.Disposables.CompositeDisposable();
 
+        /// <summary>Constructor</summary>
+        /// <param name="data">app data object (inject from Unity)</param>
         public NavigationTreeViewModel(WPFPrismData data)
         {
             this.appData = data;
@@ -31,12 +33,12 @@ namespace NavigationTree.ViewModels
             var col = new System.Collections.ObjectModel.ObservableCollection<TreeViewItemViewModel>();
             col.Add(this.rootNode);
             this.TreeNodes = col.ToReadOnlyReactiveCollection()
-                .AddTo(this.disposables);
+                .AddTo(this._disposables);
         }
 
         void System.IDisposable.Dispose()
         {
-            this.disposables.Dispose();
+            this._disposables.Dispose();
         }
     }
 }

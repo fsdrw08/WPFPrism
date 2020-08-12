@@ -25,6 +25,9 @@ namespace NavigationTree.ViewModels
 		/// <summary>Gets the source data for the TreeViewItem.</summary>
 		public object SourceData { get; } = null;
 
+		/// <summary>TreeViewItem expand property</summary>
+		public ReactivePropertySlim<bool> IsExpanded { get; set; }
+
 		/// <summary>List of ReactiveProperty for Dispose</summary>
 		private System.Reactive.Disposables.CompositeDisposable _disposables
 			= new System.Reactive.Disposables.CompositeDisposable();
@@ -60,7 +63,7 @@ namespace NavigationTree.ViewModels
 					this.ItemText = t.ObserveProperty(x => x.TestDate)
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
-					imageFileName = "data_add.png";
+					imageFileName = "date_add.png";
 					break;
 
 				case string s:
@@ -68,16 +71,23 @@ namespace NavigationTree.ViewModels
 						.Select(v => v as string)
 						.ToReadOnlyReactivePropertySlim()
 						.AddTo(this._disposables);
-					if(s=="Physical test") { imageFileName = "folder_user.png"; }
-					if(s=="Test result") { imageFileName = "folder_page_white.png"; }
+					if(s== "physical measurement") { imageFileName = "folder_user.png"; }
+					if(s== "measure result") { imageFileName = "folder_page_white.png"; }
 					break;
 			}
 
+			if(!string.IsNullOrEmpty(imageFileName))
+			{ 
 				var img = new System.Windows.Media.Imaging.BitmapImage(
 					new Uri("pack://application:,,,/NavigationTree;component/Resources/" + imageFileName,
-						UriKind.Absolute));
+							UriKind.Absolute
+							));
 				this.ItemImage = new ReactiveProperty<System.Windows.Media.ImageSource>(img)
 					.AddTo(this._disposables);
+			}
+
+			this.IsExpanded = new ReactivePropertySlim<bool>(true)
+				.AddTo(this._disposables);
 		}
 
 		/// <summary>Destroys the object.</summary>
